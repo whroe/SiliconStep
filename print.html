@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    ${printContentBody}
+</body>
+<script>
+!function doPrint() { 
+    var bdhtml=window.document.body.innerHTML; 
+    var sprnstr="<!--startprint-->"; 
+    var eprnstr="<!--endprint-->"; 
+    var prnhtml=bdhtml.substr(bdhtml.indexOf(sprnstr)+17); 
+    prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr)); 
+    window.document.body.innerHTML=prnhtml; 
+    window.print(); 
+    window.document.body.innerHTML=bdhtml;
+    return false;
+}()
+</script>
+</html>

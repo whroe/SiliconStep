@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>test chrome paste image</title>
+<style>
+    DIV#editable {
+        width: 400px;
+        height: 300px;
+        border: 1px dashed blue;
+    }
+</style>
+<script type="text/javascript">
+
+window.onload=function() {
+    function paste_img(e) {
+        var arr = []
+        arr.push(e.clipboardData.getData('Text'))
+        console.log(e.clipboardData.getData('Text').replace(/\n/g,',').split(','));
+
+    }
+    document.getElementById('editable').onpaste=function(){paste_img(event);return false;};
+}
+
+</script>
+</head>
+<body >
+    <h2>test image paste in browser</h2>
+    <div id="non-editable" >
+        <p>copy the following img, then paste it into the area below</p>
+    </div>
+    <div id="editable" contenteditable="true" >
+        <p>this is an editable div area</p>
+        <p>paste the image into here.</p>
+    </div>
+</body>
+</html>

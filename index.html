@@ -1,0 +1,33 @@
+<html>
+<body >
+<script>
+document.body.onkeydown = function(e){
+if(e.which == '86'){
+//create textarea and can't display on the screen
+var ta = document.createElement('textarea');
+ta.style.position = 'absolute';
+//ta.style.left = '-1000px';
+ta.style.top = document.body.scrollTop + 'px';
+ta.value = "";
+document.body.appendChild(ta);
+ta.select();
+
+setTimeout(function(){
+var clipText = ta.value;
+var clipRows = clipText.split(/[\n\f\r]/);
+var clippedRange = [];
+console.log(clipText,clipRows)
+// document.body.removeChild(ta);
+for (var i=0; i<clipRows.length-1; i++) {
+if (clipRows[i]!="")
+clippedRange[i] = clipRows[i].split("\t");
+else
+clippedRange[i] = [""];
+}
+},10)
+}
+}
+</script>
+</body>
+</html>
+
