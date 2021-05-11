@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./copytojs.js" ></script>
+    <script src="./aes.js"></script>
+</head>
+<body>
+    <script>
+          var key = "0000000671595991";
+        var iv = "tdrdadq59tbss5n7";
+        var pazzword = 'spy19970909sdadas'
+        
+        // aes 加密
+        console.log(encrypt(pazzword,key,iv));
+        
+        console.log(decrypt(encrypt(pazzword,key,iv),key,iv));
+         // 加密
+    function encrypt(data,key,iv) { //key,iv：16位的字符串
+        var key1  = CryptoJS.enc.Latin1.parse(key);
+        var iv1   = CryptoJS.enc.Latin1.parse(iv);
+        return CryptoJS.AES.encrypt(data, key1,{
+            iv : iv1,
+            mode : CryptoJS.mode.CBC,
+            padding : CryptoJS.pad.ZeroPadding
+        }).toString();
+    }
+    // 解密
+    function decrypt(data,key,iv){ //key,iv：16位的字符串
+        var key1  = CryptoJS.enc.Latin1.parse(key);
+        var iv1   = CryptoJS.enc.Latin1.parse(iv);
+        var decrypted=CryptoJS.AES.decrypt(data,key1,{
+            iv : iv1,
+            mode : CryptoJS.mode.CBC,
+            padding : CryptoJS.pad.ZeroPadding
+        });
+        return decrypted.toString(CryptoJS.enc.Utf8);
+    }
+    </script>
+</body>
+</html>

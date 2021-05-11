@@ -40,12 +40,12 @@
 				var fragment = document.createDocumentFragment();
 			for(var i=0;i<num;i++){
 				var randomX = (Math.random() * wW)-bZ;
-				randomX =Math.abs(randomX);//取绝对值
+				randomX =Math.abs(randomX);//取绝对    值
 				var  oBalloon = document.createElement('div');
 				oBalloon.className = 'balloon';
 				oBalloon.style.top =wH+'px';
 				oBalloon.style.left =randomX + 'px';
-				oBalloon.speed =~~(Math.random()*8) + 1;//随机自动义速度
+				oBalloon.speed =~~(Math.random()* 8) + 1;//随机自动义速度
 				fragment.appendChild(oBalloon);
 				aBalloon.push(oBalloon);
 			}

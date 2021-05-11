@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>code</title>
+</head>
+</html>
+<script>
+    function include(file){
+        var script = document.createElement('script')
+        script.setAttribute('type','text/javascript')
+        script.setAttribute('src',file)
+        var box = document.createElement('code')
+        box.id = 'code'
+        box.style.position = 'fixed'
+        box.style.top = '60px'
+        box.style.left = '0'
+        box.style.zIndex = '1000'
+        document.body.appendChild(script)
+        document.body.appendChild(box)
+        if (document.all) { //如果是IE
+            script.onreadystatechange = function () {
+                if (js.readyState == 'loaded' || js.readyState == 'complete') {
+                    makeCode()
+                }
+            }
+        }
+        else {
+            script.onload = function () {
+                makeCode()
+            } 
+        }
+    }
+    function makeCode(){
+        var qrcode =  new QRCode(document.getElementById("code"), {
+            width : 200,
+            height : 200
+        });
+        qrcode.makeCode(window.location.href);
+    }
+    window.onload = function(){
+        include('https://cdn.bootcdn.net/ajax/libs/qrcodejs/1.0.0/qrcode.js')
+        document.getElementById('code').addEventListener('click',function (e) { 
+        
+        }) 
+    }
+
+</script>

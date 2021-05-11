@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xPath</title>
+</head>
+<body>
+    <div>
+        <span>asdasdadsad</span>
+    </div>
+</body>
+<script>
+        function getSameLevelName(node){
+        if(node.previousSibling) {
+            let name = ''; 
+            let count = 1;    
+            let nodeName = node.nodeName;
+            let sibling = node.previousSibling;
+            while(sibling){
+                if(sibling.nodeType == 1 && sibling.nodeType === node.nodeType && sibling.nodeName){
+                    if(nodeName == sibling.nodeName){
+                        name += ++count;
+                    }else {
+                        count = 1;
+                        name += '|' + sibling.nodeName.toUpperCase()
+                    }
+                }
+                sibling = sibling.previousSibling;
+            }
+            return name
+        }else {
+            return ''
+        }
+    }
+    let Interpreter = (function(){
+    return function(node, wrap1){
+    let path = [],
+    wrap = wrap1 || document;
+    if(node === wrap) {
+        if(wrap.nodeType == 1) {
+        path.push(wrap.nodeName.toUpperCase())
+        }
+        return path
+    }
+    if(node.parentNode !== wrap){
+        path = arguments.callee(node.parentNode, wrap)
+    }
+    else {
+        wrap.nodeType == 1 && path.push(wrap.nodeName.toUpperCase())
+    }
+    let sublingsNames = getSameLevelName(node);
+    if(node.nodeType == 1){
+        path.push(node.nodeName.toUpperCase() + sublingsNames)
+    }
+    return path
+    }
+    })()
+</script>
+</html>

@@ -1,0 +1,42 @@
+<script>
+    function getRequestFn(time){
+        return ()=>{
+            return new Promise((resolve,reject)=>{
+                setTimeout(() => {
+                    resolve(time)
+                }, time);
+            })
+        }
+    }
+    function createRequest(tasks=[],pool){
+        pool = pool || 5; //限制并发的数量
+        let results = [];
+        let running = 0; // 当前运行个数
+        let resultsLength = tasks.length; // 用来判断最后的是否全部成功
+        return new Promise((resolve,reject)=>{
+            next();
+            function next(){
+                while(running < pool && tasks.length){ // 这个wile循环保证 一直有pool个请求在进行
+                running++;
+                let task = tasks.shift();
+                task().then(result => {
+                    results.push(result);
+                }).finally(()=>{
+                    running--;
+                    next();
+                })
+                }
+                if(results.length === resultsLength) { // 全部执行结束
+                    resolve(results);
+                }
+            }
+        })
+    }
+    let tasks = [getRequestFn(4000),getRequestFn(2000),getRequestFn(2000),getRequestFn(2000)];
+    // 发送请求 并发数为2
+    console.time();
+    createRequest(tasks,2).then((value)=>{
+        console.log(value)
+        console.timeEnd();
+    })
+</script>
