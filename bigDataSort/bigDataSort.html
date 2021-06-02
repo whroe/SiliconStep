@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>js处理1千万条数据排序并且页面不卡顿</title>
+</head>
+<body>
+  <h1>我就是测试文字，看works会不会造成页面卡顿</h1>
+  <script>
+    // 放在火狐浏览器测试      谷歌会默认跨域,必须是服务器环境
+    let works = new Worker('./sort.js') // 1.新建works
+    works.postMessage({max: 10000000}) // 2 给works发送参数
+    works.onmessage = function (event) { // 6. 接收works的数据并处理操作
+      console.log(event.data)
+      works.terminate() // 7 关闭works主线程
+    }
+  </script>
+</body>
+</html>
